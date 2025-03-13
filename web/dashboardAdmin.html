@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midterm Examination Automation Dashboard</title>
+    <link rel="stylesheet" href="Admin.css">
+    <script>
+        // Function to display success or error messages dynamically
+        function displayMessage(message, isSuccess) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.style.display = 'block';
+            messageDiv.style.color = isSuccess ? 'green' : 'red';
+            messageDiv.textContent = message;
+        }
+    </script>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Exam Dashboard</h2>
+        <ul>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#add-student">Add Student</a></li>
+            <li><a href="#view-students">View Students</a></li>
+            <li><a href="#view-results">View Results</a></li>
+            <li><a href="#manage-exams">Manage Exams</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="home.html">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>Midterm Exam Automation System</h1>
+        </header>
+
+        <section id="dashboard">
+            <h2>Dashboard</h2>
+            <p>Welcome to the Admin Dashboard.</p>
+        </section>
+
+        <!-- Add Student Section -->
+        <section id="add-student">
+            <h2>Add Student</h2>
+            <form action="AddStudentServlet" method="post">
+                <label for="enrollment-no">Enrollment No:</label>
+                <input type="text" id="enrollment-no" name="enrollmentNo" placeholder="Enter Enrollment No" required>
+
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" placeholder="Enter Full Name" required>
+
+                <label for="course">Course:</label>
+                <input type="text" id="course" name="course" placeholder="Enter Course (e.g., B.Tech)" required>
+
+                <label for="class">Class:</label>
+                <input type="text" id="class" name="class" placeholder="Enter Class (e.g., A1)" required>
+
+                <label for="semester">Semester:</label>
+                <input type="number" id="semester" name="semester" min="1" max="8" placeholder="Enter Semester" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email Address" required>
+
+                <button type="submit">Add Student</button>
+            </form>
+        </section>
+
+        <!-- View Students Section -->
+        <section id="view-students">
+            <h2>View Students</h2>
+            <div id="student-list">
+                <!-- Student list will be loaded here -->
+            </div>
+        </section>
+
+        <script>
+            // Fetch student data from the servlet and populate the student list
+            document.addEventListener("DOMContentLoaded", function () {
+                fetch("ViewStudentsServlet")
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById("student-list").innerHTML = data;
+                    })
+                    .catch(error => {
+                        console.error("Error fetching student data:", error);
+                    });
+            });
+
+            // Example functions for edit and delete buttons
+            function editStudent(enrollmentNo) {
+                alert("Edit functionality for " + enrollmentNo + " is not implemented yet.");
+            }
+
+            function deleteStudent(enrollmentNo) {
+                if (confirm("Are you sure you want to delete " + enrollmentNo + "?")) {
+                    alert("Delete functionality for " + enrollmentNo + " is not implemented yet.");
+                }
+            }
+        </script>
+
+       <section id="view-results">
+    <h2>View Results</h2>
+    <label for="enrollment-input">Enter Enrollment No:</label>
+    <input type="text" id="enrollment-input" placeholder="Enter Enrollment No">
+    
+    <!-- Button to open results in a new tab -->
+    <button onclick="openResultsInNewTab()">Search</button>
+
+    <div id="results-table">
+        <!-- Results will be dynamically loaded here if needed -->
+    </div>
+</section>
+
+<script>
+// Function to open the results in a new tab
+function openResultsInNewTab() {
+    const enrollmentNo = document.getElementById('enrollment-input').value;
+
+    if (!enrollmentNo) {
+        alert("Please enter an enrollment number.");
+        return;
+    }
+
+    // Construct the URL to open in a new tab
+    const url = `ViewResultsServlet?enrollmentNo=${encodeURIComponent(enrollmentNo)}`;
+
+    // Open the results page in a new tab
+    const newWindow = window.open(url, '_blank');
+
+    // Add a Print Button in the new window after it's loaded
+    newWindow.onload = function() {
+        const printButton = newWindow.document.createElement('button');
+        printButton.innerHTML = 'Print Results';
+        printButton.onclick = function() {
+            newWindow.print();
+        };
+
+        // Style the button to be fixed at the bottom
+        printButton.style.position = 'fixed';
+        printButton.style.bottom = '10px';   // Distance from the bottom
+        printButton.style.left = '50%';      // Center horizontally
+        printButton.style.transform = 'translateX(-50%)';  // Offset the centering by half of the button's width
+        printButton.style.padding = '10px';
+        printButton.style.backgroundColor = '#4CAF50';
+        printButton.style.color = 'white';
+        printButton.style.border = 'none';
+        printButton.style.fontSize = '16px';
+        printButton.style.cursor = 'pointer';
+
+        // Append the button to the body of the new window
+        newWindow.document.body.appendChild(printButton);
+    };
+}
+</script>
+
+        <section id="manage-exams">
+    <h2>Manage Exams</h2>
+
+    <!-- Display message here -->
+    <div id="message" style="display:none; margin-bottom: 20px;"></div>
+
+    <form action="ManageExamServlet" method="post">
+        <label for="exam-name">Exam Name:</label>
+        <input type="text" id="exam-name" name="exam-name" required>
+
+        <label for="exam-date">Exam Date:</label>
+        <input type="date" id="exam-date" name="exam-date" required>
+
+        <button type="submit">Add Exam</button>
+    </form>
+</section>
+ <script type="text/javascript">
+        // Check for status message and show appropriate alert
+        var urlParams = new URLSearchParams(window.location.search);
+        var status = urlParams.get('status');
+        var message = urlParams.get('message');
+        
+        if (status && message) {
+            alert(message);  // Show alert based on the status
+        }
+    </script>
+
+        <section id="settings">
+            <h2>Settings</h2>
+            <p>Configure settings here.</p>
+        </section>
+    </div>
+</body>
+</html>

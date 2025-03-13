@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="Teacher.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Teacher Dashboard</h2>
+        <ul>
+            <li><a href="#profile">Profile</a></li>
+            <li><a href="#manage-students">Manage Students</a></li>
+            <li><a href="#create-exam">Create Exam</a></li>
+            <li><a href="#student-performance">Student Performance</a></li>
+            <li><a href="#upload-resources">Upload Resources</a></li>
+            <li><a href="#settings">Settings</a></li>
+            <li><a href="#logout">Logout</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <h1>Welcome, Teacher</h1>
+        </header>
+        
+        <section id="profile">
+            <h2>Profile</h2>
+            <p><strong>Teacher ID:</strong> 56789</p>
+            <p><strong>Name:</strong> Prof. Chanchal Bansal</p>
+            <p><strong>Department:</strong> CSIT</p>
+        </section>
+        
+        <section id="manage-students">
+            <h2>Manage Students</h2>
+            <table>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Grade</th>
+                </tr>
+                <!-- Sample row -->
+                <tr>
+                    <td>12345</td>
+                    <td>Adarsh Goyal</td>
+                    <td>A</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="create-exam">
+            <h2>Create Exam</h2>
+            <form>
+                <label for="exam-name">Exam Name:</label>
+                <input type="text" id="exam-name" name="exam-name" required>
+                
+                <label for="exam-date">Exam Date:</label>
+                <input type="date" id="exam-date" name="exam-date" required>
+                
+                <label for="exam-duration">Duration (minutes):</label>
+                <input type="number" id="exam-duration" name="exam-duration" required>
+                
+                <button type="submit">Create Exam</button>
+            </form>
+        </section>
+
+        <section id="student-performance">
+            <h2>Student Performance</h2>
+            <table>
+                <tr>
+                    <th>Exam Name</th>
+                    <th>Student ID</th>
+                    <th>Score</th>
+                    <th>Grade</th>
+                </tr>
+                <!-- Sample row -->
+                <tr>
+                    <td>Math Midterm</td>
+                    <td>12345</td>
+                    <td>85%</td>
+                    <td>A</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="upload-resources">
+            <h2>Upload Resources</h2>
+            <form>
+                <label for="resource-name">Resource Name:</label>
+                <input type="text" id="resource-name" name="resource-name" required>
+                
+                <label for="resource-file">Upload File:</label>
+                <input type="file" id="resource-file" name="resource-file" required>
+                
+                <button type="submit">Upload</button>
+            </form>
+        </section>
+
+        <section id="settings">
+            <h2>Settings</h2>
+            <p>Update your account settings here.</p>
+        </section>
+    </div>
+</body>
+</html>
